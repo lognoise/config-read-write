@@ -1,6 +1,6 @@
 {
   "name": "@lognoise/config-read-write",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Read and write yml config files",
   "main": "index.js",
   "scripts": {
