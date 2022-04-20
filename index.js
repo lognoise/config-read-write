@@ -1,21 +1,50 @@
-class Color {
-  constructor(name, code) {
-    this.name = name;
-    this.code = code;
-  }
+'use strict';
+
+/**
+* @class ConfigReaderWriter
+* @author: Lognoise
+* @version: 0.2
+* @description: Reads config infos from files and sets them @global.
+*/
+
+// ** Module dependencies.
+const yaml = require('js-yaml');
+const fs = require('fs');
+
+class ConfigReadWrite {
+	/**
+	* Reads a config file
+	*
+	* @param {string} filename The name of config file
+	* @return {object} The document
+	*
+	*/
+	constructor () {
+		this.path = '';
+		this.config = {};
+	}
+
+	async read (path) {
+		try {
+			var doc = await yaml.load(fs.readFileSync(path, 'utf8'));
+		} catch (error) {
+			console.error('Cannot read yml file: ', error);
+		}
+		this.config = doc;
+		return null;
+	}
+
+	get () {
+		return this.config;
+	}
+
+	replace () {
+		return null;
+	}
+
+	write () {
+		return null;
+	}
 }
 
-const allColors = [
-  new Color('brightred', '#E74C3C'),
-  new Color('soothingpurple', '#9B59B6'),
-  new Color('skyblue', '#5DADE2'),
-  new Color('leafygreen', '#48C9B0'),
-  new Color('sunkissedyellow', '#F4D03F'),
-  new Color('groovygray', '#D7DBDD'),
-];
-
-exports.getRandomColor = () => {
-  return allColors[Math.floor(Math.random() * allColors.length)];
-}
-
-exports.allColors = allColors;
+module.exports = ConfigReadWrite;
